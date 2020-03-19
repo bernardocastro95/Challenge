@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnAccess;
     private EditText name;
     private EditText password;
+    private TextView userRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnAccess = findViewById(R.id.btnLogin);
         name = findViewById(R.id.editName);
         password = findViewById(R.id.editPassword);
+        userRegister = findViewById(R.id.textLogin);
 
         btnAccess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
                 validate(name.getText().toString(), password.getText().toString());
             }
         });
+       /*userRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
+            }
+        });*/
     }
     private void validate(String userLogin, String userPassword){
         if((userLogin.equals("Admin")) && (userPassword.equals("admin"))){

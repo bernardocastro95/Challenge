@@ -6,4 +6,5 @@
     <string name="register">New User ? Register Here</string>
     <string name="registerButton">Register</string>
     <string name="hintMail">Email</string>
+    <string name="login">Already Registered ? Login Here</string>
 </resources>
