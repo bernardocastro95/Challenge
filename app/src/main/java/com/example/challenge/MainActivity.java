@@ -6,21 +6,38 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Button btnAccess;
+    private EditText name;
+    private EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnAcess = findViewById(R.id.btnLogin);
+        btnAccess = findViewById(R.id.btnLogin);
+        name = findViewById(R.id.editName);
+        password = findViewById(R.id.editPassword);
 
-        btnAcess.setOnClickListener(new View.OnClickListener() {
+        btnAccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DatabaseActivity.class));
+                validate(name.getText().toString(), password.getText().toString());
             }
         });
+    }
+    private void validate(String userLogin, String userPassword){
+        if((userLogin.equals("Admin")) && (userPassword.equals("admin"))){
+            Intent intent = new Intent(MainActivity.this, DatabaseActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(MainActivity.this, "Invalid Login", Toast.LENGTH_LONG).show();
+        }
     }
 }
