@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     pd.dismiss();
-                    startActivity(new Intent(MainActivity.this, DatabaseActivity.class));
-                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                    checkMailVerification();
+                    //Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
                 }
                 else {
                     pd.dismiss();
@@ -81,5 +81,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void checkMailVerification(){
+        FirebaseUser fbu = fab.getInstance().getCurrentUser();
+        Boolean mailFlag = fbu.isEmailVerified();
+
+        if(mailFlag){
+            finish();
+            startActivity(new Intent(MainActivity.this, DatabaseActivity.class));
+        }
+        else {
+            Toast.makeText(this, "Please verify your email", Toast.LENGTH_LONG).show();
+            fab.signOut();
+        }
     }
 }

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -34,7 +35,6 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validate()){
-                    //Data to database
                     String email = userEmail.getText().toString().trim();
                     String password = userPassword.getText().toString().trim();
 
@@ -42,8 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                                sendMai();
                             }
                             else {
                                 Toast.makeText(RegistrationActivity.this, "Registration failed", Toast.LENGTH_LONG).show();
@@ -82,5 +81,24 @@ public class RegistrationActivity extends AppCompatActivity {
             result = true;
         }
         return result;
+    }
+    private void sendMai(){
+        final FirebaseUser fbu = fba.getCurrentUser();
+        if(fbu != null){
+            fbu.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(RegistrationActivity.this, "Successfully Registered, Verification Mail has Been Sent", Toast.LENGTH_LONG).show();
+                        fba.signOut();
+                        finish();
+                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                    }
+                }
+            });
+        }
+        else {
+            Toast.makeText(RegistrationActivity.this, "Failed To Send Email", Toast.LENGTH_LONG).show();
+        }
     }
 }
