@@ -1,7 +1,9 @@
 package com.example.challenge;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,11 +12,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnAccess, btnNewUser;
     private EditText name;
     private EditText password;
+    private FirebaseAuth fab;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +35,18 @@ public class MainActivity extends AppCompatActivity {
         name = findViewById(R.id.editName);
         password = findViewById(R.id.editPassword);
         btnNewUser = findViewById(R.id.btnNewUser);
+
+        fab = FirebaseAuth.getInstance();
+
+        pd = new ProgressDialog(this);
+
+
+        FirebaseUser fbu = fab.getCurrentUser();
+
+        if(fbu != null){
+            finish();
+            startActivity(new Intent(MainActivity.this, DatabaseActivity.class));
+        }
 
         btnAccess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,12 +62,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void validate(String userLogin, String userPassword){
-        if((userLogin.equals("Admin")) && (userPassword.equals("admin"))){
-            Intent intent = new Intent(MainActivity.this, DatabaseActivity.class);
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(MainActivity.this, "Invalid Login", Toast.LENGTH_LONG).show();
-        }
+
+        pd.setMessage("Login in Progress");
+        pd.show();
+
+        fab.signInWithEmailAndPassword(userLogin, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()){
+                    pd.dismiss();
+                    startActivity(new Intent(MainActivity.this, DatabaseActivity.class));
+                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    pd.dismiss();
+                    Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
