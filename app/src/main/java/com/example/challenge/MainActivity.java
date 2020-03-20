@@ -12,10 +12,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnAccess;
+    private Button btnAccess, btnNewUser;
     private EditText name;
     private EditText password;
-    private TextView userRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         btnAccess = findViewById(R.id.btnLogin);
         name = findViewById(R.id.editName);
         password = findViewById(R.id.editPassword);
-        userRegister = findViewById(R.id.textLogin);
+        btnNewUser = findViewById(R.id.btnNewUser);
 
         btnAccess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
                 validate(name.getText().toString(), password.getText().toString());
             }
         });
-       /*userRegister.setOnClickListener(new View.OnClickListener() {
+       btnNewUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
             }
-        });*/
+        });
     }
     private void validate(String userLogin, String userPassword){
         if((userLogin.equals("Admin")) && (userPassword.equals("admin"))){

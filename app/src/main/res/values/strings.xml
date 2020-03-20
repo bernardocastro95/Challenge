@@ -3,8 +3,8 @@
     <string name="hintLogin">Login</string>
     <string name="hintPassword">Password</string>
     <string name="loginButton">Login</string>
-    <string name="register">New User ? Register Here</string>
+    <string name="register">New User ? Click on the Button Below</string>
     <string name="registerButton">Register</string>
     <string name="hintMail">Email</string>
-    <string name="login">Already Registered ? Login Here</string>
+    <string name="login">Already Registered ? Click on the Button Below</string>
 </resources>
