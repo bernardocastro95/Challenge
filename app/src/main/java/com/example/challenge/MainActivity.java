@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnAccess, btnNewUser;
+    private Button btnAccess, btnNewUser, btnForgotPassword;
     private EditText name;
     private EditText password;
     private FirebaseAuth fab;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         name = findViewById(R.id.editName);
         password = findViewById(R.id.editPassword);
         btnNewUser = findViewById(R.id.btnNewUser);
+        btnForgotPassword = findViewById(R.id.btnForgotPassword);
 
         fab = FirebaseAuth.getInstance();
 
@@ -60,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
             }
         });
+       btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(MainActivity.this, ForgotPasswordActivity.class));
+           }
+       });
     }
     private void validate(String userLogin, String userPassword){
 

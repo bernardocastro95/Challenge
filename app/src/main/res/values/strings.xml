@@ -13,4 +13,5 @@
     <string name="refresh">Refresh</string>
     <string name="forgot">Forgot Password ? Click on the Button on the right</string>
     <string name="btnForgot">Forgot Password</string>
+    <string name="btnReset">Reset</string>
 </resources>
