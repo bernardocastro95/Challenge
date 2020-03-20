@@ -3,7 +3,7 @@
     <string name="hintLogin">Login</string>
     <string name="hintPassword">Password</string>
     <string name="loginButton">Login</string>
-    <string name="register">New User ? Click on the Button Below</string>
+    <string name="register">New User ? Click on the Button on the left</string>
     <string name="registerButton">Register</string>
     <string name="hintMail">Email</string>
     <string name="login">Already Registered ? Click on the Button Below</string>
@@ -11,4 +11,6 @@
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
     <string name="refresh">Refresh</string>
+    <string name="forgot">Forgot Password ? Click on the Button on the right</string>
+    <string name="btnForgot">Forgot Password</string>
 </resources>
